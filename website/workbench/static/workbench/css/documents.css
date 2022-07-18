@@ -1,0 +1,225 @@
+/* html {
+
+}
+
+body {
+
+} */
+
+/* Extra extra small devices (phones, 510px and down) */
+/* @media only screen and (max-width: 510px) {
+
+
+} */
+
+/* Extra extra small devices (phones, 575px and down) */
+@media only screen and (max-width: 575px) {
+
+  .force_size {
+    width: 90% !important;
+  }
+
+  .container_custom {
+    margin: auto;
+    margin-top: 9%;
+  }
+
+}
+
+/* Extra small devices (phones, 650px and down) */
+@media only screen and (max-width: 650px) {
+
+  .force_size {
+    width: 90% !important;
+  }
+
+  .container_custom {
+    margin: auto;
+    margin-top: 5%;
+  }
+
+}
+
+/* Small devices (portrait tablets and large phones, 650px and up) */
+@media only screen and (min-width: 650px) {
+
+  .force_size {
+    width: 92% !important;
+  }
+
+  .container_custom {
+    margin: auto;
+    margin-top: 5%;
+  }
+
+}
+
+/* Scrollable menu for low-height devices                                                                */
+@media only screen and (max-height: 450px) {
+
+}
+
+/* Medum devices (Small laptops and tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+  .force_size {
+    width: 85% !important;
+  }
+
+  .container_custom {
+    margin: auto;
+    margin-top: 4%;
+  }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+  .force_size {
+    width: 72% !important;
+  }
+
+  .container_custom {
+    margin: auto;
+    margin-top: 4%;
+  }
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+  .container_custom {
+    margin: auto;
+    margin-top: 3%;
+  }
+
+  .force_size {
+    width: 75% !important;
+  }
+
+  .form_custom_1 {
+    width: 100%;
+  }
+
+  .popup_form {
+    position: relative;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: rgb(37, 34, 34);
+    border: 2px solid black;
+    color: white;
+    width: 500px;
+    top: 15vh;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.5);
+    transition: 0.2s ease-out;
+  }
+
+  .review_table_div {
+    min-height: 72vh;
+    max-height: 72vh;
+    overflow-y: auto;
+  }
+  
+}
+
+#popup_bg {
+	display: none;
+	background-color: rgba(233, 233, 233, 0.5);
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index: 99999999;
+  transition: 0.2s ease-out;
+}
+
+.new_review_buttons {
+  --bs-gutter-x: 0rem;
+  width: 100%;
+}
+
+.close_button_x {
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor:pointer;
+}
+
+.close_button_x:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: '\d7';
+  font-size: 50px; 
+  color: #FFF;
+  line-height: 40px;
+  text-align: center;
+}
+
+.review_title {
+  color: #46bcde;
+}
+
+.review_description {
+  color: #e5c454;
+  color: white;
+}
+
+.review_div {
+  transition: 0.3s ease-out;
+}
+
+.review_div:hover {
+  transform: scale(1.01);
+  transition: 0.3s ease-out;
+  z-index: 10;
+  border: 1px solid white;
+  background-color: rgb(92, 89, 89);
+  cursor: pointer;
+}
+
+.review_div:hover {
+  transform: scale(1.005);
+  transition: 0.2s ease-out;
+  z-index: 10;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.review_div:hover .review_title {
+  color: #ddb530;
+}
+
+.review_div:hover .review_description {
+  color: #ffffff;
+}
+
+.no_reviews_div {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.no_reviews_heading {
+
+}
+
+.max_review_div {
+  max-height: 130px;
+  overflow: hidden;
+}
+
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,232 @@
+{% load static %}
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta charset="ISO-8859-1">
+      <title>Document List</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <link rel="stylesheet" href="/static/workbench/css/general.css">
+      <link rel="stylesheet" href="/static/workbench/css/global.css">
+      <link rel="stylesheet" href="/static/workbench/css/documents_list.css">
+      <script src="/static/workbench/js/general.js"></script>
+      <script src="/static/workbench/js/side_menu.js"></script>
+      <script src="/static/workbench/js/document_list.js" defer></script>
+      
+    </head>
+
+    <!-------------------------- NAV BAR -------------------------->
+    <nav class="navbar navbar-light navbar_custom" style="background-color: #000000;">
+      <div class="container-fluid">
+        <p class="center_nav_brand">
+          <a href="{% url 'homepage' %}" class="navbar-brand brand_custom">WorkBench</a>
+        </p>
+      </div>
+    </nav>
+    
+    <body>
+      <!-------------------------- MAIN CONTAINER -------------------------->
+      <div class="container-fluid container_min_viewport">
+        <!-------------------------- SIDEBAR -------------------------->
+        <div class="sidebar">
+          <div class="logo_content">
+            <div class="logo">
+              <!-- <i class="fas fa-home"></i> -->
+              <div class="logo_name">SearchResults</div>
+            </div>
+            <i class="fas fa-bars" id="btn"></i>
+          </div>
+          <ul class="nav_list">
+            <li>
+              <a href="{% url 'homepage' %}">
+                <i class="fas fa-home"></i>
+                <span class="links_name">Home</span>
+              </a>
+              <span class="tooltip_custom">Home</span>
+            </li>
+
+            <li>
+              <a href="{% url 'account' %}">
+                <i class="fas fa-user"></i>
+                <span class="links_name">Account</span>
+              </a>
+              <span class="tooltip_custom">Account</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'documents' %}">
+                <i class="fas fa-file-word"></i>
+                <span class="links_name">Reviews</span>
+              </a>
+              <span class="tooltip_custom">Reviews</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'history' %}">
+                <i class="fas fa-history"></i>
+                <span class="links_name">History</span>
+              </a>
+              <span class="tooltip_custom">History</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'info' %}">
+                <i class="fas fa-info-circle"></i>
+                <span class="links_name">Information</span>
+              </a>
+              <span class="tooltip_custom">Information</span>
+            </li>
+
+            <li>
+              <a href="{% url 'settings' %}">
+                <i class="fas fa-cog"></i>
+                <span class="links_name">Settings</span>
+              </a>
+              <span class="tooltip_custom">Settings</span>
+            </li>
+
+            <li>
+              <a href="{% url 'index' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="links_name">Logout</span>
+              </a>
+              <span class="tooltip_custom">Logout</span>
+            </li>
+          </ul>
+        </div>
+        <!-------------------------- PAGE CONTENT -------------------------->
+        <div class="page_content">
+          <div class="container_custom force_size row">
+            
+            <!-------------------------- SEARCH DIV -------------------------->
+            <div class="standard_div_shadow padding_10 row row_no_gutter">
+              <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 no_padding">
+                <form class="d-flex search_placement search_form_nav" method="GET">
+                  {% csrf_token %}
+                  <input name="document_list_input" type="search" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" type="search" placeholder="Search documents" aria-label="searchReviewsTable">
+                  <button class="btn button_white rectangle_border search_button_nav" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+
+            <!-------------------------- TABLE DIV -------------------------->
+            <div class="standard_div_shadow margin_top_1p row row_no_gutter">
+              <div class="table100 ver3 m-b-110">
+                <div class="table100-head">
+                  <table>
+                    <thead>
+                      <tr class="row100 head border_bottom_white">
+                        <th class="cell100 column1">Title</th>
+                        <th class="cell100 column2 center_text">Last modified</th>
+                        <th class="cell100 column3 center_text">Annotated</th>
+                        <th class="cell100 column4 center_text">Annotated by</th>
+                        <th class="cell100 column5 center_text">Relevancy</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              
+                <div class="table100-body js-pscroll">
+                  <table>
+                    <tbody>
+            
+
+                      {% for document in all_documents %}
+
+                        <tbody class="review_onclick table_tbody_link">
+
+                          <form id="form_onclick_{{forloop.counter0}}"  method="POST">
+                          {% csrf_token %}
+                            <input name="selected_document_id" type="hidden" value={{ document.id }}>
+                          </form>
+
+                          <tr class="row100 body table_tr_link">
+                            <td class="cell100 column1">{{ document.title }}</td>
+                            <td class="cell100 column2 center_text">{{ document.added_on }}</td>
+
+                            {% if document.is_screened == False %}
+                              <td class="cell100 column3 center_text">No</td>
+                            {% else %}
+                              <td class="cell100 column3 center_text">Yes</td>
+                            {% endif %}
+                            
+                            <td class="cell100 column4 center_text">{{ document.screened_by_username }}</td>
+
+                            {% if document.relevancy == 0 %}
+                              <td class="cell100 column3 center_text">Not relevant</td>
+                            {% elif document.relevancy == 1 %}
+                              <td class="cell100 column3 center_text">Relevant</td>
+                            {% elif document.relevancy == 3 %}
+                              <td class="cell100 column3 center_text">Undecided</td>
+                            {% else %}
+                              <td class="cell100 column3 center_text">Not annotated</td>
+                            {% endif %}
+                          </tr>
+                        </tbody>
+
+
+                        
+                      {% empty %}
+                        <div class="standard_gray_div documents_table_div no_documents_div">
+                          <h2 class="text-white">There are no documents in this review</h2>
+                        </div>
+                      {% endfor %}   
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-------------------------- FOOTER -------------------------->
+      <footer id="footer" class="footer-1 bg_black text_white">
+        <div class="main-footer widgets-dark typo-light text_white">
+          <div class="container">
+            <div class="row">
+              <div class="col footer_description">
+                <div class="widget subscribe no-box">
+                  <h5 class="widget-title">WorkBench<span></span></h5>
+                    <p class="text_white">Categorize documents based on users' feedback </p>
+                </div>
+              </div>
+              
+              <div class="col">
+                
+              </div>
+
+              <div class="col">
+                
+              </div>
+            
+              <div class="col footer_contact">
+                <div class="widget no-box">
+                  <h5 class="widget-title">Contact Us<span></span></h5>
+                    <p class="text_white">aminkov1@sheffield.ac.uk</p>
+                    <p class="text_white">+44 7510 739559</p>
+                </div>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+            
+        <div class="footer-copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p class="text_white">Copyright Anton Minkov © 2021-2022. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </body>
+
+  </html>

@@ -1,0 +1,517 @@
+html { 
+  overflow-y: scroll;
+  overflow-x: scroll;  
+}
+
+body {
+  min-width: 325px;
+}
+
+/* Extra extra small devices (phones, 510px and down) */
+@media only screen and (max-width: 510px) {
+
+  .search_form_nav {
+    width: 100%;
+  }
+
+  .center_nav_brand {
+    width: 100%;
+    text-align: center;
+  }
+
+  .page_content .text {
+    font-size: 21px;
+    font-weight: 500;
+    color: black;
+    margin-top: 6px;
+    margin-left: 6px;
+  }
+
+}
+
+/* Extra small devices (phones, 650px and down) */
+@media only screen and (max-width: 650px) {
+
+  body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container_min_viewport {
+    min-height: 100vh;
+  }
+  
+  .page_content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .page_content .text {
+    font-size: 22px;
+    font-weight: 500;
+    color: black;
+    margin-top: 6px;
+    margin-left: 6px;
+  }
+  
+  .search_input_nav:focus {
+    outline: none !important;
+    border:1px solid rgb(255, 255, 255);
+    border-color: none !important;
+  }
+  
+  .navbar_custom {
+    padding-top: 0.20rem;
+    padding-bottom: 0.65rem;
+  }
+  
+  .brand_custom {
+    margin-left: 0px;
+    font-size: 1.8rem;
+    font-family: Garamond;
+    color: white !important;
+    padding-bottom: 0.175rem;
+  }
+  
+  
+  #footer {
+    padding-top: 1%;
+    position: absolute;
+    height: auto;
+    width: 100%;
+  }
+  
+  .bg_black {
+    background-color: black !important;
+  }
+  
+  .text_white {
+    color: white !important;
+  }
+  
+  .no_list {
+    list-style: none;
+    padding-left: 0%;
+    text-decoration: none;
+  }
+
+  .footer_contact {
+    text-align: center !important;
+    display: none;
+  }
+
+  .footer_description {
+    text-align: center !important;
+    display: none;
+  }
+
+  .search_form_nav {
+    padding-bottom: 0.215rem;
+  }
+
+  .search_input_nav {
+    font-size: 14px;
+  }
+
+  .search_button_nav {
+    font-size: 14px;
+  }
+
+}
+
+/* Small devices (portrait tablets and large phones, 650px and up) */
+@media only screen and (min-width: 650px) {
+
+  body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container_min_viewport {
+    min-height: 100vh;
+  }
+  
+  .page_content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .page_content .text {
+    font-size: 22px;
+    font-weight: 500;
+    color: black;
+    margin-top: 8px;
+    margin-left: 8px;
+  }
+  
+  .search_input_nav:focus {
+    outline: none !important;
+    border:1px solid rgb(255, 255, 255);
+    border-color: none !important;
+  }
+  
+  .navbar_custom {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+  }
+  
+  .brand_custom {
+    margin-left: 0px;
+    font-size: 2.38rem;
+    font-family: Garamond;
+    color: white !important;
+  }
+  
+  
+  #footer {
+    padding-top: 1%;
+    position: absolute;
+    height: auto;
+    width: 100%;
+  }
+  
+  .bg_black {
+    background-color: black !important;
+  }
+  
+  .text_white {
+    color: white !important;
+  }
+  
+  .no_list {
+    list-style: none;
+    padding-left: 0%;
+    text-decoration: none;
+  }
+
+  .footer_contact {
+    text-align: center !important;
+    display: none;
+  }
+
+  .footer_description {
+    text-align: center !important;
+    display: none;
+  }
+
+  .center_nav_brand {
+    margin-left: 0px;
+  }
+
+}
+
+/* Scrollable menu for low-height devices                                                                */
+@media only screen and (max-height: 450px) {
+
+  .sidebar {
+    overflow-y: scroll; 
+  }
+
+  .footer_contact {
+    text-align: center !important;
+    display: none;
+  }
+
+  .footer_description {
+    text-align: center !important;
+    display: none;
+  }
+
+  .navbar_custom {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+}
+  
+}
+
+/* Medum devices (Small laptops and tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+  body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container_min_viewport {
+    min-height: 100vh;
+  }
+  
+  .page_content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .page_content .text {
+    font-size: 22px;
+    font-weight: 500;
+    color: black;
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+  
+  .search_input_nav:focus {
+    outline: none !important;
+    border:1px solid rgb(255, 255, 255);
+    border-color: none !important;
+  }
+  
+  .navbar_custom {
+    padding-top: 0.35rem;
+    padding-bottom: 0.45rem;
+  }
+  
+  .brand_custom {
+    margin-left: 0px;
+    font-size: 2.38rem;
+    font-family: Garamond;
+    color: white !important;
+  }
+  
+  
+  #footer {
+    padding-top: 1%;
+    position: absolute;
+    height: auto;
+    width: 100%;
+  }
+  
+  .bg_black {
+    background-color: black !important;
+  }
+  
+  .text_white {
+    color: white !important;
+  }
+  
+  .no_list {
+    list-style: none;
+    padding-left: 0%;
+    text-decoration: none;
+  }
+
+  .footer_contact {
+    text-align: right !important;
+    display: block;
+  }
+
+  .footer_description {
+    text-align: left !important;
+    display: block;
+  }
+
+  .center_nav_brand {
+    margin-left: 0px;
+  }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+  body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container_min_viewport {
+    min-height: 100vh;
+  }
+  
+  .page_content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .page_content .text {
+    font-size: 25px;
+    font-weight: 500;
+    color: black;
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+  
+  .search_input_nav:focus {
+    outline: none !important;
+    border:1px solid rgb(255, 255, 255);
+    border-color: none !important;
+  }
+  
+  .navbar_custom {
+    padding-top: 0.35rem;
+    padding-bottom: 0.45rem;
+  }
+  
+  .brand_custom {
+    margin-left: 0px;
+    font-size: 2.38rem;
+    font-family: Garamond;
+    color: white !important;
+  }
+  
+  
+  #footer {
+    padding-top: 1%;
+    position: absolute;
+    height: auto;
+    width: 100%;
+  }
+  
+  .bg_black {
+    background-color: black !important;
+  }
+  
+  .text_white {
+    color: white !important;
+  }
+  
+  .no_list {
+    list-style: none;
+    padding-left: 0%;
+    text-decoration: none;
+  }
+
+  .footer_contact {
+    text-align: right !important;
+    display: block;
+  }
+
+  .footer_description {
+    text-align: left !important;
+    display: block;
+  }
+
+  .center_nav_brand {
+    margin-left: 0px;
+  }
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+  body {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container_min_viewport {
+    min-height: 100vh;
+  }
+  
+  .page_content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+  }
+  
+  .page_content .text {
+    font-size: 25px;
+    font-weight: 500;
+    color: black;
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+  
+  .search_input_nav:focus {
+    outline: none !important;
+    border:1px solid rgb(255, 255, 255);
+    border-color: none !important;
+  }
+  
+  .navbar_custom {
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+  }
+  
+  .brand_custom {
+    margin-left: 0px;
+    font-size: 2.38rem;
+    font-family: Garamond;
+    color: white !important;
+  }
+  
+  
+  #footer {
+    padding-top: 1%;
+    position: absolute;
+    height: auto;
+    width: 100%;
+  }
+  
+  .bg_black {
+    background-color: black !important;
+  }
+  
+  .text_white {
+    color: white !important;
+  }
+  
+  .no_list {
+    list-style: none;
+    padding-left: 0%;
+    text-decoration: none;
+  }
+
+  .footer_contact {
+    text-align: right !important;
+    display: block;
+  }
+
+  .footer_description {
+    text-align: left !important;
+    display: block;
+  }
+
+  .center_nav_brand {
+    margin-left: 0px;
+  }
+
+}
+
+.center_nav_brand {
+  margin-bottom: 0;
+}
+
+.border_bottom_black {
+  border-bottom: 2px solid black;
+}
+
+.button_white {
+  background-color: rgb(59, 57, 57);
+  color: white;
+  border: 2px solid white;
+}
+
+.button_white:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border: 2px solid white;
+}
+
+.rectangle_border {
+  border-radius: 0rem;
+}
+
+.bg_dark_gray {
+  background-color: rgb(43, 42, 42);
+  color: white;
+}
+
+.search_input_nav:focus {
+  background-color: rgb(59, 58, 58);
+  color: white;
+}

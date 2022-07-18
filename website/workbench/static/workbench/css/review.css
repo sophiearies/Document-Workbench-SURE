@@ -1,0 +1,227 @@
+html {
+
+}
+
+body {
+
+}
+
+/* Extra extra small devices (phones, 510px and down) */
+@media only screen and (max-width: 510px) {
+
+}
+
+/* Extra small devices (phones, 650px and down) */
+@media only screen and (max-width: 650px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 650px and up) */
+@media only screen and (min-width: 650px) {
+
+}
+
+/* Scrollable menu for low-height devices                                                                */
+@media only screen and (max-height: 450px) {
+
+}
+
+/* Medum devices (Small laptops and tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+}
+
+.container_custom {
+  margin: auto;
+  margin-top: 3%;
+}
+
+.force_size {
+  width: 65% !important;
+}
+
+.review_header {
+  font-size: 1.45em;
+  word-wrap:break-word;
+}
+
+.review_text {
+  font-size: 1.08em;
+  word-wrap:break-word;
+}
+
+.page_content hr {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.review_title {
+  color: #46bcde;
+}
+
+.review_description {
+  color: #e5c454;
+  color: white;
+}
+
+.input_file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input_file + label {
+  font-size: 1.10rem;
+  border-radius: 0rem;
+  background-color: rgb(59, 57, 57);
+  border: 2px solid white;
+  color: white;
+  box-shadow: none;
+  outline: 0;
+  padding: 0.375rem 0.75rem;
+  transition: color .15s ease-in-out,background-color .15s 
+                         ease-in-out,border-color .15s
+                         ease-in-out,box-shadow .15s 
+                         ease-in-out;
+  -webkit-appearance: button;
+  vertical-align:middle;
+  display: inline-block;
+}
+
+.input_file:focus + label,
+.input_file + label:hover {
+  background-color: rgb(92, 92, 92);
+  color: white;
+  border: 2px solid white;
+  box-shadow: none;
+  outline: 0;
+}
+
+.input_file + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.input_file:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+ .input_file:focus{
+  outline: 1px solid rgba(255,255,255,1);
+}
+
+.review_big_button_99 {
+  padding: 11px;
+  font-size: 1.44rem !important;
+  width: 99%;
+}
+
+.review_big_button {
+  padding: 11px;
+  font-size: 1.44rem !important;
+  width: 100%;
+}
+
+.review_download_big_button {
+  padding: 11px;
+  font-size: 1.44rem !important;
+  width: 98%;
+}
+
+.bg_nice_green {
+  background-color: rgb(2, 95, 9) !important;
+  color: white !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_green:hover {
+  background-color: rgb(31, 138, 40) !important;
+}
+
+.bg_nice_blue {
+  background-color: rgb(44, 47, 202) !important;
+  color: white !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_blue:hover {
+  background-color: rgb(102, 104, 218) !important;
+}
+
+.progress_header {
+  font-size: 1.25em;
+  word-wrap:break-word;
+  color: #e5c454;
+}
+
+.progress_text {
+  font-size: 1.25em;
+  word-wrap:break-word;
+  color: white;
+}
+
+.classifier_option {
+  font-size: 1.25em;
+  cursor: pointer;
+}
+
+.classifier_option:hover {
+  font-size: 1.25em;
+  border: 1px solid white;
+  background-color: rgb(167, 167, 167);
+  color: black; 
+  font-size: 1.25em;
+  cursor: pointer;
+}
+
+.classifier_option_selected {
+  border: 1px solid white;
+  background-color: rgb(207, 193, 193);
+  color: black; 
+  font-weight: bold;
+  font-size: 1.25em;
+  cursor: pointer;
+}
+
+.recall_paragraph {
+  font-size: 1.65em;
+}
+
+.review_export_button {
+  padding: 5px;
+  font-size: 1.1rem !important;
+  width: 98%;
+}
+
+.export_option_label {
+  font-size: 1.25em;
+}
+
+.standard-select {
+  width: 100%;
+  font-size: 1.25em;
+}
+
+.input_field_percentage {
+  width: 100%;
+  font-size: 1.10em;
+}
+
+input:invalid {
+  background-color: red;
+}

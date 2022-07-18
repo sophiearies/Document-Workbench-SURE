@@ -1,0 +1,148 @@
+.container_custom {
+  margin: auto;
+  margin-top: 3%;
+}
+
+.force_size {
+  width: 80% !important;
+}
+
+.height_100p {
+  height: 100%;
+}
+
+.width_100p {
+  width: 100%;
+}
+
+.annoint_buttons_div {
+  position : absolute;
+  bottom: 1rem;
+}
+
+.review_header {
+  font-size: 1.45em;
+  word-wrap:break-word;
+}
+
+.review_text {
+  font-size: 1.08em;
+  word-wrap:break-word;
+}
+
+.center_in_div {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+}
+
+.annoint_big_button {
+  padding: 11px;
+  font-size: 1.24rem !important;
+  width: 100%;
+}
+
+.bg_nice_blue {
+  background-color: rgb(44, 47, 202) !important;
+  color: white !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_blue:hover {
+  background-color: rgb(102, 104, 218) !important;
+}
+
+.bg_nice_green {
+  background-color: rgb(39, 180, 46) !important;
+  color: rgb(0, 0, 0) !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_green:hover {
+  background-color: rgb(79, 192, 85) !important;
+}
+
+.bg_nice_red {
+  background-color: rgb(192, 50, 40) !important;
+  color: rgb(0, 0, 0) !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_red:hover {
+  background-color: rgb(179, 82, 75) !important;
+}
+
+.bg_nice_yellow {
+  background-color: rgb(221, 224, 47) !important;
+  color: rgb(0, 0, 0) !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 20px rgba(70, 188, 222, 0.068) !important;
+}
+
+.bg_nice_yellow:hover {
+  background-color: rgb(233, 255, 111) !important;
+}
+
+.stick_bottom {
+  position:absolute;
+  bottom:0;
+  width: 100%;
+}
+
+.progress_header {
+  font-size: 1.25em;
+  word-wrap:break-word;
+  color: #e5c454;
+}
+
+.progress_text {
+  font-size: 1.25em;
+  word-wrap:break-word;
+  color: white;
+}
+
+.container_custom {
+  margin: auto;
+  margin-top: 3%;
+}
+
+.force_size {
+  width: 85% !important;
+}
+
+.review_header {
+  font-size: 1.45em;
+  word-wrap:break-word;
+}
+
+.review_text {
+  font-size: 1.08em;
+  word-wrap:break-word;
+}
+
+.page_content hr {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.review_title {
+  color: #46bcde;
+}
+
+.review_description {
+  color: #e5c454;
+  color: white;
+}
+
+.abstract_text {
+  color: black;
+}
+
+.abstract_column {
+  min-height: 80vh;
+  padding: 3%;
+}

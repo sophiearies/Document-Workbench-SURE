@@ -1,0 +1,7 @@
+ID	Title	Relevancy
+1	Clinical Evidence of Antidepressant Effects of Insulin and Anti-Hyperglycemic Agents and Implications for the Pathophysiology of Depression-A Literature Review.	0
+2	Validation of the Swedish Diabetes Re-Grouping Scheme in Adult-Onset Diabetes in China.	3
+3	Effects of Sustained Treatment With Lixisenatide on Gastric Emptying and Postprandial Glucose Metabolism in Type 2 Diabetes: A Randomized Controlled Trial.	1
+4	A Randomized Trial Evaluating the Efficacy and Safety of Fast-Acting Insulin Aspart Compared With Insulin Aspart, Both in Combination With Insulin Degludec With or Without Metformin, in Adults With Type 2 Diabetes (ONSET 9).	3
+5	Real-world Evaluation of glycemic control and hypoglycemic Events among type 2 Diabetes mellitus study (REEDS): a multicentre, cross-sectional study in Thailand.	1
+6	Factors associated with the glucose-lowering efficacy of sitagliptin in Japanese patients with type 2 diabetes mellitus: Pooled analysis of Japanese clinical trials.	2

@@ -1,0 +1,360 @@
+{% load static %}
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta charset="ISO-8859-1">
+      <title>History</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <link rel="stylesheet" href="/static/workbench/css/general.css">
+      <link rel="stylesheet" href="/static/workbench/css/global.css">
+      <link rel="stylesheet" href="/static/workbench/css/history.css">
+      <script src="/static/workbench/js/general.js"></script>
+      <script src="/static/workbench/js/side_menu.js"></script>
+      <script src="/static/workbench/js/history.js" defer></script>
+      
+    </head>
+
+    <!-------------------------- REVIEW FORM POPUP -------------------------->
+    <div id="popup_bg">
+      <div class="popup_form">
+        <div id="popup_form_close_x" class="close_button_x"></div>
+        <h2 class="center_text">Select review</h2>
+
+        <!-------------------------- ACTUAL FORM START-------------------------->
+        <div class="history_review_holder padding_5">
+          {% for review in all_reviews %}
+            <div class="standard_gray_div text_white mb-3 padding_5 review_onclick review_div max_review_div">
+              <a> 
+                <h4 class="mb-1 review_title"><b>{{ review.title }}</b></h4>
+                <div>
+                  <p class="margin_bottom_0p review_description">{{ review.description }}</p>
+                  <input id="review_onclick_{{forloop.counter0}}" type="hidden" value={{ review.id }}>
+                </div>
+              </a>
+            </div>
+          {% empty %}
+            <div class="standard_gray_div documents_table_div">
+              <h2 class="text-white">There are no reviews available</h2>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="row new_review_buttons">
+          <button class="btn button_white rectangle_border search_button_nav margin_right_1p col-lg-3 col-md-4 col-sm-4 col-xs-6 button_bottom" id="popup_form_close" type="button">Cancel</button>
+        </div> 
+        <!-------------------------- ACTUAL FORM END-------------------------->
+      </div>
+    </div>
+
+    <!-------------------------- NAV BAR -------------------------->
+    <nav class="navbar navbar-light navbar_custom" style="background-color: #000000;">
+      <div class="container-fluid">
+        <p class="center_nav_brand">
+          <a href="{% url 'homepage' %}" class="navbar-brand brand_custom">WorkBench</a>
+        </p>
+      </div>
+    </nav>
+    
+    <body>
+      <!-------------------------- MAIN CONTAINER -------------------------->
+      <div class="container-fluid container_min_viewport">
+        <!-------------------------- SIDEBAR -------------------------->
+        <div class="sidebar">
+          <div class="logo_content">
+            <div class="logo">
+              <!-- <i class="fas fa-home"></i> -->
+              <div class="logo_name">SearchResults</div>
+            </div>
+            <i class="fas fa-bars" id="btn"></i>
+          </div>
+          <ul class="nav_list">
+            <li>
+              <a href="{% url 'homepage' %}">
+                <i class="fas fa-home"></i>
+                <span class="links_name">Home</span>
+              </a>
+              <span class="tooltip_custom">Home</span>
+            </li>
+
+            <li>
+              <a href="{% url 'account' %}">
+                <i class="fas fa-user"></i>
+                <span class="links_name">Account</span>
+              </a>
+              <span class="tooltip_custom">Account</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'documents' %}">
+                <i class="fas fa-file-word"></i>
+                <span class="links_name">Reviews</span>
+              </a>
+              <span class="tooltip_custom">Reviews</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'history' %}">
+                <i class="fas fa-history"></i>
+                <span class="links_name">History</span>
+              </a>
+              <span class="tooltip_custom">History</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'info' %}">
+                <i class="fas fa-info-circle"></i>
+                <span class="links_name">Information</span>
+              </a>
+              <span class="tooltip_custom">Information</span>
+            </li>
+
+            <li>
+              <a href="{% url 'settings' %}">
+                <i class="fas fa-cog"></i>
+                <span class="links_name">Settings</span>
+              </a>
+              <span class="tooltip_custom">Settings</span>
+            </li>
+
+            <li>
+              <a href="{% url 'index' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="links_name">Logout</span>
+              </a>
+              <span class="tooltip_custom">Logout</span>
+            </li>
+          </ul>
+        </div>
+        <!-------------------------- PAGE CONTENT -------------------------->
+        <div class="page_content">
+          <div class="force_size row div m-auto mb-3 mt-3">
+            <div class="force_size row p-2 m-auto">
+
+              <!-------------------------- BIG PAGE FORM START -------------------------->
+              <form id="history_form" class="d-flex search_placement search_form_nav" method="GET">
+                {% csrf_token %}
+
+                <!-------------------------- HISTORY PROFILE -------------------------->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 column_table_1">
+                  <!-------------------------- SEARCH DIV -------------------------->
+                  <div class="standard_div_shadow padding_10 row row_no_gutter">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div>
+                        <h3 class="center_text text-white">Account history</h3>
+                      </div>
+                    </div>
+
+                    <hr class="header_separator">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no_padding">
+                      <div class="d-flex search_placement search_form_nav">
+                        <input name="history_profile_input" type="search" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" type="search" placeholder="Search history" aria-label="searchReviewsTable" value={{ search_query_profile }}>
+                        <button name="history_profile_search" class="btn button_white rectangle_border search_button_nav" type="submit">Search</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="standard_div_shadow margin_top_1p row row_no_gutter">
+                    <div class="table100 ver3 m-b-110">
+                      <div class="table100-head">
+                        <table>
+                          <thead>
+                            <tr class="row100 head border_bottom_white">
+                              <th class="cell100 column1_1 center_text">Action</th>
+                              <th class="cell100 column1_2 center_text">Time</th>
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    
+                      <div class="table100-body js-pscroll">
+                        <table>
+                          <tbody>
+                  
+
+                            {% for entry in history_profile %}
+
+                              <tbody class="review_onclick table_tbody_link">
+
+                                <tr class="row100 body table_tr_link">
+                                  <td class="cell100 column1_1">{{ entry.action }}</td>
+                                  <td class="cell100 column1_2 p-3">{{ entry.created_on }}</td>
+
+                                  
+                                </tr>
+                              </tbody>
+
+
+                              
+                            {% empty %}
+                              <div class="standard_gray_div documents_table_div no_documents_div">
+                                <h2 class="text-white">There is no history to show</h2>
+                              </div>
+                            {% endfor %}   
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-------------------------- HISTORY REVIEW -------------------------->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 column_table_2">
+                  
+                  <!-------------------------- SEARCH DIV -------------------------->
+                  <div class="standard_div_shadow padding_10 row row_no_gutter">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div>
+                        {% if all_reviews %}
+                          <h3 class="center_text text-white">Review history for: {{selected_review.title}}</h3>
+                        {% else %}
+                          <h3 class="center_text text-white">Review history for: No reviews available</h3>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <hr class="header_separator">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no_padding">
+
+                      <div class="d-flex search_placement search_form_nav">
+                        {% if all_reviews %}
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no_padding d-flex">
+                            <input name="history_review_input" type="search" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" placeholder="Search history" aria-label="searchReviewsTable" value={{ search_query_review }}>
+                            <input id="review_id_input" name="history_review_dropdown" type="hidden" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" aria-label="searchReviewsTable" value={{selected_review.id}}>
+                            <button name="history_review_search" class="btn button_white rectangle_border search_button_nav" type="submit">Search</button>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no_padding">
+                            <button id="popup_form_open" class="btn button_white rectangle_border search_button_nav float_right" type="button">Select review</button>
+                          </div>
+                        {% else %}
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no_padding d-flex">
+                            <input name="history_review_input" type="search" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" placeholder="" aria-label="searchReviewsTable" disabled>
+                            <input name="history_review_dropdown" type="hidden" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" aria-label="searchReviewsTable" value="empty" disabled>
+                            <button name="history_review_search" class="btn button_white rectangle_border search_button_nav" type="submit" disabled>Search</button>
+                          </div>
+                        {% endif %}
+                        </div>
+
+                    </div>
+                  </div>
+
+                  <div class="standard_div_shadow margin_top_1p row row_no_gutter">
+                    <div class="table100 ver3 m-b-110">
+                      <div class="table100-head">
+                        <table>
+                          <thead>
+                            <tr class="row100 head border_bottom_white">
+                              <th class="cell100 column2_1 center_text">Action</th>
+                              <th class="cell100 column2_2 center_text">Time</th>
+                              <th class="cell100 column2_3 center_text">User</th>
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    
+                      <div class="table100-body js-pscroll">
+                        <table>
+                          <tbody>
+                            
+                            {% if all_reviews %}
+
+                              {% for entry in history_review %}
+
+                                <tbody class="review_onclick table_tbody_link">
+
+                                  <tr class="row100 body table_tr_link">
+                                    <td class="cell100 column2_1 p-3">{{ entry.action }}</td>
+                                    <td class="cell100 column2_2 p-3">{{ entry.created_on }}</td>
+                                    <td class="cell100 column2_3 center_text">{{ entry.created_by }}</td>
+
+                                    
+                                  </tr>
+                                </tbody>
+
+
+                                
+                              {% empty %}
+                                <div class="standard_gray_div documents_table_div no_documents_div">
+                                  <h2 class="text-white">There is no history for this review</h2>
+                                </div>
+                              {% endfor %} 
+                              
+                            {% else %}
+                              <div class="standard_gray_div documents_table_div no_documents_div">
+                                <h2 class="text-white">There are no reviews available</h2>
+                              </div>
+                            {% endif %}
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!-------------------------- BIG PAGE FORM END -------------------------->
+            </div>
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <!-------------------------- FOOTER -------------------------->
+      <footer id="footer" class="footer-1 bg_black text_white">
+        <div class="main-footer widgets-dark typo-light text_white">
+          <div class="container">
+            <div class="row">
+              <div class="col footer_description">
+                <div class="widget subscribe no-box">
+                  <h5 class="widget-title">WorkBench<span></span></h5>
+                    <p class="text_white">Categorize documents based on users' feedback </p>
+                </div>
+              </div>
+              
+              <div class="col">
+                
+              </div>
+
+              <div class="col">
+                
+              </div>
+            
+              <div class="col footer_contact">
+                <div class="widget no-box">
+                  <h5 class="widget-title">Contact Us<span></span></h5>
+                    <p class="text_white">aminkov1@sheffield.ac.uk</p>
+                    <p class="text_white">+44 7510 739559</p>
+                </div>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+            
+        <div class="footer-copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p class="text_white">Copyright Anton Minkov © 2021-2022. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </body>
+
+  </html>

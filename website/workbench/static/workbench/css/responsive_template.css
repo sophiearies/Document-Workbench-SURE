@@ -1,0 +1,42 @@
+html {
+
+}
+
+body {
+
+}
+
+/* Extra extra small devices (phones, 510px and down) */
+@media only screen and (max-width: 510px) {
+
+}
+
+/* Extra small devices (phones, 650px and down) */
+@media only screen and (max-width: 650px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 650px and up) */
+@media only screen and (min-width: 650px) {
+
+}
+
+/* Scrollable menu for low-height devices                                                                */
+@media only screen and (max-height: 450px) {
+
+}
+
+/* Medum devices (Small laptops and tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
+}

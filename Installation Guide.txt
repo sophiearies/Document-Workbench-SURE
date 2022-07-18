@@ -1,0 +1,39 @@
+Install Python 3.8.5:
+https://www.python.org/downloads/release/python-385/
+
+Open the terminal and navigate to ../Document Workbench/website
+
+Depending on your python installation run one of the following commands:
+
+pip install -r /path/to/requirements.txt
+-----------------------------------------
+py -m pip install -r requirements.txt
+-----------------------------------------
+py -3 pip install -r requirements.txt
+-----------------------------------------
+python3 pip install -r requirements.txt
+
+Wait for the app to install of dependencies
+
+To start the app:
+
+Depending on your python installation run one of the following commands:
+
+python .\manage.py runserver
+-----------------------------
+py -m manage.py runserver
+-----------------------------
+py -3 manage.py runserver
+-----------------------------
+python3 manage.py runserver
+
+Access the app at:
+
+http://localhost:8000/
+
+Default account:
+
+Username: admin_account
+Password: admin_account
+
+To terminate the server press Ctrl+C in the terminal

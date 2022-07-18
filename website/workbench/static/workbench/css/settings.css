@@ -1,0 +1,190 @@
+.container_custom {
+  margin: auto;
+  margin-top: 3%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  border: 1px solid black;
+  position: relative;
+}
+
+.force_size {
+  width: 75% !important;
+  min-height: 72vh;
+}
+
+.header_separator {
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid white;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.update_div {
+  position: absolute;
+  right: 3%;
+  bottom: 3%;
+  width: 18%;
+}
+
+.image_force_size_1 {
+  background-color: rgb(46, 44, 44);
+  width: 100% !important;
+  min-height: 20.5vh;
+  height: 20.5vh;
+  max-height: 20.5vh;
+  overflow: hidden;
+  display: flex;
+  outline: 2px solid white;
+  margin-top: 0%;
+  margin-bottom: 8px;
+}
+
+img.banner {
+  max-width: inherit;
+  max-height: inherit;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+}
+
+.update_profile_button {
+  font-size: 20px !important;
+}
+
+.image_force_size_2 {
+  background-color: rgb(46, 44, 44);
+  width: 100% !important;
+  height: 20.5vh;
+  overflow: hidden;
+  display: flex;
+  outline: 2px solid white;
+  margin-left: 1%;
+  margin-top: 0%;
+  margin-bottom: 8px;
+}
+
+img.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: fill
+}
+
+.margin_left_3pix {
+  margin-left: 3px;
+}
+
+.margin_left_-2pix {
+  margin-left: -2px;
+}
+
+.upload_button {
+  margin-left: -3px;
+}
+
+.profile_images_div {
+
+}
+
+.no_right_margin {
+  margin-right: 0% !important;
+}
+
+.input_file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input_file + label {
+  width: 100% !important;
+  text-align: center;
+  font-size: 1.25rem;
+  border-radius: 0rem;
+  background-color: rgb(59, 57, 57);
+  outline: 2px solid white;
+  color: white;
+  box-shadow: none;
+  padding: 0.375rem 0.75rem;
+  transition: color .15s ease-in-out,background-color .15s 
+                         ease-in-out,border-color .15s
+                         ease-in-out,box-shadow .15s 
+                         ease-in-out;
+  -webkit-appearance: button;
+  vertical-align:middle;
+  display: inline-block;
+}
+
+.input_file:focus + label,
+.input_file + label:hover {
+  background-color: rgb(92, 92, 92);
+  color: white;
+  outline: 2px solid white;
+  box-shadow: none;
+}
+
+.input_file + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.input_file:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+ .input_file:focus{
+  outline: 1px solid rgba(255,255,255,1);
+}
+
+
+
+.input_file_2 {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.input_file_2 + label {
+  width: 100% !important;
+  text-align: center;
+  font-size: 1.25rem;
+  border-radius: 0rem;
+  background-color: rgb(59, 57, 57);
+  outline: 2px solid white;
+  color: white;
+  box-shadow: none;
+  padding: 0.375rem 0.75rem;
+  transition: color .15s ease-in-out,background-color .15s 
+                         ease-in-out,border-color .15s
+                         ease-in-out,box-shadow .15s 
+                         ease-in-out;
+  -webkit-appearance: button;
+  vertical-align:middle;
+  display: inline-block;
+}
+
+.input_file_2:focus + label,
+.input_file_2 + label:hover {
+  background-color: rgb(92, 92, 92);
+  color: white;
+  outline: 2px solid white;
+  box-shadow: none;
+}
+
+.input_file_2 + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.input_file_2:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+ .input_file_2:focus{
+  outline: 1px solid rgba(255,255,255,1);
+}

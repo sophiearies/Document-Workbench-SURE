@@ -1,0 +1,95 @@
+.container_custom {
+  margin: auto;
+  margin-top: 3%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  border: 1px solid black;
+  position: relative;
+}
+
+.force_size {
+  width: 75% !important;
+  min-height: 72vh;
+}
+
+.image_force_size_1 {
+  background-color: rgb(46, 44, 44);
+  width: 100% !important;
+  min-height: 17.5vh;
+  max-height: 17.5vh;
+  overflow: hidden;
+  display: flex;
+  border-bottom: 2px solid white;
+}
+
+img.banner {
+  max-width: inherit;
+  max-height: inherit;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+}
+
+.image_force_size_2 {
+  background-color: rgb(46, 44, 44);
+  width: 85% !important;
+  height: 21.5vh;
+  overflow: hidden;
+  display: flex;
+  outline: 2px solid white;
+  margin-left: 20%;
+  margin-top: -12%;
+  z-index: 999999999;
+}
+
+img.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: fill
+}
+
+.account_username {
+  margin-left: 3%;
+  margin-top: 1%;
+  font-weight: bold;
+}
+
+.account_role {
+  margin-left: 3%;
+  font-style: italic;
+}
+
+.account_description {
+  margin-left: 3%;
+
+}
+
+.header_separator {
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid white;
+  margin-left: 3%;
+}
+
+.header_separator_2 {
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid white;
+  margin-top: 2%;
+  margin-left: 2.3%;
+  margin-right: 2.3%;
+}
+
+.docs_annotated_div {
+  position: absolute;
+  right: 2.3%;
+  bottom: 1%;
+  font-size: large;
+}
+
+.created_on_div {
+  position: absolute;
+  left: 2.3%;
+  bottom: 1%;
+  font-size: large;
+}
+

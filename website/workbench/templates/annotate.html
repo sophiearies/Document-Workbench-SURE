@@ -1,0 +1,313 @@
+{% load static %}
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta charset="ISO-8859-1">
+      <title>Annotate</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <link rel="stylesheet" href="/static/workbench/css/general.css">
+      <link rel="stylesheet" href="/static/workbench/css/global.css">
+      <link rel="stylesheet" href="/static/workbench/css/annotate.css">
+      <script src="/static/workbench/js/general.js"></script>
+      <script src="/static/workbench/js/side_menu.js"></script>
+      
+      
+    </head>
+
+    <!-------------------------- NAV BAR -------------------------->
+    <nav class="navbar navbar-light navbar_custom" style="background-color: #000000;">
+      <div class="container-fluid">
+        <p class="center_nav_brand">
+          <a href="{% url 'homepage' %}" class="navbar-brand brand_custom">WorkBench</a>
+        </p>
+      </div>
+    </nav>
+    
+    <body>
+      <!-------------------------- MAIN CONTAINER -------------------------->
+      <div class="container-fluid container_min_viewport">
+        <!-------------------------- SIDEBAR -------------------------->
+        <div class="sidebar">
+          <div class="logo_content">
+            <div class="logo">
+              <!-- <i class="fas fa-home"></i> -->
+              <div class="logo_name">SearchResults</div>
+            </div>
+            <i class="fas fa-bars" id="btn"></i>
+          </div>
+          <ul class="nav_list">
+            <li>
+              <a href="{% url 'homepage' %}">
+                <i class="fas fa-home"></i>
+                <span class="links_name">Home</span>
+              </a>
+              <span class="tooltip_custom">Home</span>
+            </li>
+
+            <li>
+              <a href="{% url 'account' %}">
+                <i class="fas fa-user"></i>
+                <span class="links_name">Account</span>
+              </a>
+              <span class="tooltip_custom">Account</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'documents' %}">
+                <i class="fas fa-file-word"></i>
+                <span class="links_name">Reviews</span>
+              </a>
+              <span class="tooltip_custom">Reviews</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'history' %}">
+                <i class="fas fa-history"></i>
+                <span class="links_name">History</span>
+              </a>
+              <span class="tooltip_custom">History</span>
+            </li>
+            
+            <li>
+              <a href="{% url 'info' %}">
+                <i class="fas fa-info-circle"></i>
+                <span class="links_name">Information</span>
+              </a>
+              <span class="tooltip_custom">Information</span>
+            </li>
+
+            <li>
+              <a href="{% url 'settings' %}">
+                <i class="fas fa-cog"></i>
+                <span class="links_name">Settings</span>
+              </a>
+              <span class="tooltip_custom">Settings</span>
+            </li>
+
+            <li>
+              <a href="{% url 'index' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="links_name">Logout</span>
+              </a>
+              <span class="tooltip_custom">Logout</span>
+            </li>
+          </ul>
+        </div>
+        <!-------------------------- PAGE CONTENT -------------------------->
+        <div class="page_content">
+
+          <!-------------------------- ROW 1 -------------------------->
+          <div class="row row_no_gutter border_white container_custom force_size row text-white padding_10 mb-5">
+
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+
+              <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force review_top_row_margin row_no_gutter ">
+                <div>
+                  <p class="no_margin no_padding text-center">
+                    <span class="review_header review_title">Review progress</span> <br>
+                  </p>
+                  <hr>
+
+                  <p class="no_margin no_padding">
+                    <span class="progress_header">Total documents:</span> <span class="progress_text">{{ all_documents.count }}</span>
+                  </p>
+
+                  <p class="no_margin  no_padding">
+                    <span class="progress_header">Relevant:</span> <span class="progress_text">{{ relevant_docs.count }}</span>
+                  </p>
+
+                  <p class="no_margin  no_padding">
+                    <span class="progress_header">Not relevant:</span> <span class="progress_text">{{ not_relevant_docs.count }}</span>
+                  </p>
+
+                  <p class="no_margin no_padding">
+                    <span class="progress_header">Undecided:</span> <span class="progress_text">{{ undecided_docs.count }}</span>
+                  </p>
+
+                  <p class="no_margin no_padding">
+                    <span class="progress_header">Unexamined:</span> <span class="progress_text">{{ not_annotated_docs.count }}</span>
+                  </p>
+                  
+
+                </div>
+              </div>
+
+            </div>
+            
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+              <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force review_top_row_margin row_no_gutter ">
+
+                <!-------------------------- ROW 1 -------------------------->
+                <div class="row row_no_gutter border_white">
+
+                  <!-------------------------- COLUMN 1 -------------------------->
+                  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 border_right_white bg-white abstract_column">
+                    
+                    <p class="abstract_text">{{document_to_annoint.abstract}}</p>
+
+                    {% comment %} <iframe id="document_frame" src={{document_to_annoint.document_file.url}}#view=FitH height="800" width="100%"></iframe>
+                    
+                    <script>
+                      var frame = document.getElementById('document_frame');
+                          frame.onload = function () {
+                              var body = frame.contentWindow.document.querySelector('body');
+                              body.style.color = 'black';
+                              body.style.fontSize = '20px';
+                              body.style.lineHeight = '20px';
+                              body.style.backgroundColor = 'white';
+                          };
+                    </script> {% endcomment %}
+
+                  </div>
+
+                  <!-------------------------- COLUMN 2 -------------------------->
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 no_padding mb-2 ">
+
+                    <!-------------------------- ROW 1 -------------------------->
+                    <div class="standard_gray_div_no_border row padding_5 margin_auto height_100p ">
+
+                      <!-------------------------- COLUMN 1 -------------------------->
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no_padding">
+                        <!-------------------------- DIV IN COLUMN -------------------------->
+                        <div class="center_in_div">
+                          <!-------------------------- DIV INFO -------------------------->
+                          <div class="center_text mt-1">
+                            <div>
+                              <p class="no_margin no_padding padding_right_10">
+                                <span class="review_header review_title text_nice_blue">Document title:</span> <br>
+                                <span class="review_text">{{document_to_annoint.title}}</span>
+                              </p>
+                            </div>
+                            <hr>
+
+                            <div>
+                              <p class="no_margin no_padding padding_right_10">
+                                <span class="review_header review_title text_nice_blue">Last modified:</span> <br>
+                                <span class="review_text">{{ document_to_annoint.added_on }}</span>
+                              </p>
+                            </div>
+                            <hr>
+                            
+                            <div>
+                              <p class="no_margin no_padding padding_right_10">
+                                <span class="review_header review_title text_nice_blue">Annotated:</span> <br>
+                                {% if document_to_annoint.is_screened == False %}
+                                  <span class="review_text text_red">No</span>
+                                {% else %}
+                                  <span class="review_text text_green">Yes</span>
+                                {% endif %}
+                              </p>
+                            </div>
+                            <hr>
+
+                            <div>
+                              <p class="no_margin no_padding padding_right_10">
+                                <span class="review_header review_title text_nice_blue">Annotated by:</span> <br>
+                                <span class="review_text">{{ document_to_annoint.screened_by }}</span>
+                              </p>
+                            </div>
+                            <hr>
+
+                            <div>
+                              <p class="no_margin no_padding padding_right_10">
+                                <span class="review_header review_title text_nice_blue">Relevancy:</span> <br>
+                                {% if document_to_annoint.relevancy == 0 %}
+                                  <span class="review_text text_red">Not relevant</span>
+                                {% elif document_to_annoint.relevancy == 1 %}
+                                  <span class="review_text text_green">Relevant</span>
+                                {% else %}
+                                  <span class="review_text text_red">Not Annotated</span>
+                                {% endif %}
+                              </p>
+                            </div>
+                            <hr>
+                          </div>
+                        
+                          <!-------------------------- DIV FORM -------------------------->
+                          <div class="stick_bottom">
+                            <form class="new_review_form" method="POST">
+                            {% csrf_token %} 
+                              <input name="annoint_document_id" type="hidden" value={{document_to_annoint.id}}>
+                              <div class="row row_no_gutter mb-2">
+                                <button name="annoint_relevant" class="btn button_white rectangle_border search_button_nav annoint_big_button bg_nice_green" type="submit">Relevant</button>
+                              </div>
+
+                              <div class="row row_no_gutter mb-2">
+                                <button name="annoint_skip" class="btn button_white rectangle_border search_button_nav annoint_big_button bg_nice_yellow" type="submit">Undecided</button>
+                              </div>
+
+                              <div class="row row_no_gutter">
+                                <button name="annoint_not_relevant" class="btn button_white rectangle_border search_button_nav annoint_big_button bg_nice_red" type="submit">Not relevant</button>
+                              </div>
+                              
+                            </form>
+                          </div>
+
+                        </div
+                        
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-------------------------- FOOTER -------------------------->
+      <footer id="footer" class="footer-1 bg_black text_white">
+        <div class="main-footer widgets-dark typo-light text_white">
+          <div class="container">
+            <div class="row">
+              <div class="col footer_description">
+                <div class="widget subscribe no-box">
+                  <h5 class="widget-title">WorkBench<span></span></h5>
+                    <p class="text_white">Categorize documents based on users' feedback </p>
+                </div>
+              </div>
+              
+              <div class="col">
+                
+              </div>
+
+              <div class="col">
+                
+              </div>
+            
+              <div class="col footer_contact">
+                <div class="widget no-box">
+                  <h5 class="widget-title">Contact Us<span></span></h5>
+                    <p class="text_white">aminkov1@sheffield.ac.uk</p>
+                    <p class="text_white">+44 7510 739559</p>
+                </div>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+            
+        <div class="footer-copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p class="text_white">Copyright Anton Minkov © 2021-2022. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </body>
+
+  </html>

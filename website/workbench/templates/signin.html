@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta charset="ISO-8859-1">
+      <title>Sign in</title>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <link rel="stylesheet" href="/static/workbench/css/index.css">
+      <link rel="stylesheet" href="/static/workbench/css/global.css">
+      <script src="/static/workbench/js/general.js"></script>
+      <script src="/static/workbench/js/side_menu.js"></script>
+      
+    </head>
+
+    <!-------------------------- NAV BAR -------------------------->
+    <nav class="navbar navbar-light navbar_custom" style="background-color: #000000;">
+      <div class="container-fluid">
+        <p class="center_nav_brand">
+          <a href="{% url 'homepage' %}" class="navbar-brand brand_custom">WorkBench</a>
+        </p>
+      </div>
+    </nav>
+    
+    <body>
+      <!-------------------------- MAIN CONTAINER -------------------------->
+      <div class="container-fluid container_min_viewport">
+        <!-------------------------- PAGE CONTENT -------------------------->
+        <div class="page_content">
+          <div class="text">
+            <form method="POST">
+            {% csrf_token %}
+              <div class="form-group">
+                <label for="signinUsername">Username</label>
+                <input name="username" type="text" class="form-control" id="signinUsername" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="signinPassword">Password</label>
+                <input name="password" type="password" class="form-control" id="signinPassword" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-------------------------- FOOTER -------------------------->
+      <footer id="footer" class="footer-1 bg_black text_white">
+        <div class="main-footer widgets-dark typo-light text_white">
+          <div class="container">
+            <div class="row">
+              <div class="col footer_description">
+                <div class="widget subscribe no-box">
+                  <h5 class="widget-title">WorkBench<span></span></h5>
+                    <p class="text_white">Categorize documents based on users' feedback </p>
+                </div>
+              </div>
+              
+              <div class="col">
+                
+              </div>
+
+              <div class="col">
+                
+              </div>
+            
+              <div class="col footer_contact">
+                <div class="widget no-box">
+                  <h5 class="widget-title">Contact Us<span></span></h5>
+                    <p class="text_white">aminkov1@sheffield.ac.uk</p>
+                    <p class="text_white">+44 7510 739559</p>
+                </div>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+            
+        <div class="footer-copyright">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <p class="text_white">Copyright Anton Minkov © 2021-2022. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </body>
+
+  </html>
