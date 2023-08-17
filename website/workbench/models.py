@@ -50,6 +50,9 @@ class DocumentRIS(models.Model):
     relevancy = models.IntegerField(default=2)
     score = models.FloatField(default=0.0000000000000000)
     added_on = models.DateTimeField(auto_now=False, default=datetime.datetime.now)
+    # tag = models.CharField(max_length=50, blank=False, null=False, default='(Unavailable)')
+    # reason = models.CharField(max_length=50, blank=False, null=False, default='(Unavailable)')
+
     
 class TempRIS(models.Model):
     review_id = models.ForeignKey(Review, on_delete=models.CASCADE, blank=False, null=False)

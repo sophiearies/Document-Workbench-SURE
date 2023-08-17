@@ -144,7 +144,7 @@
                   <hr>
 
                   <p class="no_margin no_padding text-center">
-                    <span class="progress_header">Estimated number of relevant documents left:</span>
+                    <span class="progress_header">Estimated number of relevant unscreened documents left:</span>
                   </p>
 
                   {% if recall_number == "Unable to calculate" or  recall_number == "Not enough data"%}
@@ -157,10 +157,6 @@
                     </p>
                     
                     <hr>
-
-                    <p class="no_margin no_padding text-center recall_paragraph">
-                      {{ recall_percentage }}
-                    </p>
                   {% endif %}
 
                 </div>
@@ -258,7 +254,7 @@
 
                           <input required name="upload_type_csv" type="hidden" value="csv">
                           <input required name="upload_review_id" type="hidden" value={{review.id}}>
-                          <button name="download_output" type="submit" class="btn button_white rectangle_border search_button_nav review_download_big_button bg_nice_green">Save as .csv</button>
+                          <button name="download_output" type="submit" download class="btn button_white rectangle_border search_button_nav review_download_big_button bg_nice_green">Save as .csv</button>
 
 
                         </form>
@@ -339,40 +335,9 @@
             <!-------------------------- COLUMN 3 -------------------------->
             <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
               <!-------------------------- EMPTY -------------------------->
+
+
               <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force review_top_row_margin row_no_gutter ">
-                
-                <div>
-                  <p class="no_margin no_padding text-center">
-                    <span class="review_header review_title">Select classifier</span> <br>
-                  </p>
-                  <hr>
-
-                  <p id="option_1" class="no_margin no_padding text-center option classifier_option">
-                    Support Vector Machines
-                  </p>
-
-                  <p id="option_2" class="no_margin  no_padding text-center option classifier_option">
-                    Random Forest
-                  </p>
-
-                  <p id="option_3" class="no_margin  no_padding text-center option classifier_option">
-                    Decision Tree
-                  </p>
-
-                  <p id="option_4" class="no_margin no_padding text-center option classifier_option">
-                    Multi-layer Perceptron
-                  </p>
-
-                  <p id="option_5" class="no_margin no_padding text-center option classifier_option">
-                    K-nearest Neighbor
-                  </p>
-                  
-
-                </div>
-
-              </div>
-
-              <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force row_no_gutter ">
                 
                 <div>
                   <form method="post">

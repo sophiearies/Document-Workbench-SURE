@@ -7,6 +7,11 @@ body {
   min-width: 325px;
 }
 
+#footer {
+  padding: 1%;
+  width: 100% !important;
+}
+
 /* Extra extra small devices (phones, 560px and down) */
 @media only screen and (max-width: 560px) {
 
@@ -221,8 +226,8 @@ body {
   
   
   #footer {
-    padding-top: 1%;
-    position: absolute;
+    /* padding-top: 1%;
+    position: absolute; */
     height: auto;
     width: calc(100% - 55px);
     left: 55px;
@@ -459,8 +464,8 @@ body {
   
   
   #footer {
-    padding-top: 1%;
-    position: absolute;
+    /* padding-top: 1%;
+    position: absolute; */
     height: auto;
     width: calc(100% - 78px);
     left: 78px;
@@ -709,8 +714,8 @@ body {
   
   
   #footer {
-    padding-top: 1%;
-    position: absolute;
+    /* padding-top: 1%;
+    position: absolute; */
     height: auto;
     width: calc(100% - 78px);
     left: 78px;
@@ -935,8 +940,8 @@ body {
   
   
   #footer {
-    padding-top: 1%;
-    position: absolute;
+    /* padding-top: 1%;
+    position: absolute; */
     height: auto;
     width: calc(100% - 78px);
     left: 78px;
@@ -1161,8 +1166,8 @@ body {
   
   
   #footer {
-    padding-top: 1%;
-    position: absolute;
+    /* padding-top: 1%;
+    position: absolute; */
     height: auto;
     width: calc(100% - 78px);
     left: 78px;

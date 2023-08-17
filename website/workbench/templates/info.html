@@ -1,22 +1,21 @@
 {% load static %}
 
 <!DOCTYPE html>
-  <html>
-    <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-      <meta charset="ISO-8859-1">
-      <title>Info</title>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-      <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-      <link rel="stylesheet" href="/static/workbench/css/general.css">
-      <link rel="stylesheet" href="/static/workbench/css/global.css">
-      <script src="/static/workbench/js/general.js"></script>
-      <script src="/static/workbench/js/side_menu.js"></script>
-      
-    </head>
-
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+  <meta charset="ISO-8859-1">
+  <title>Info</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/51361b0113.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/workbench/css/general.css">
+  <link rel="stylesheet" href="/static/workbench/css/global.css">
+  <link rel="stylesheet" href="/static/workbench/css/info.css">
+  <script src="/static/workbench/js/general.js"></script>
+  <script src="/static/workbench/js/side_menu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</head>
     <!-------------------------- NAV BAR -------------------------->
     <nav class="navbar navbar-light navbar_custom" style="background-color: #000000;">
       <div class="container-fluid">
@@ -99,10 +98,88 @@
         <!-------------------------- PAGE CONTENT -------------------------->
         <div class="page_content">
           <div class="text">
-            This is the info page
+            <p> Welcome to the Document Review Workbench. This information page will tell you everything you need to know about the system. 
+              Before getting started, it's important to note that currently this only supports single-user reviewing as of writing this. 
+          </p>
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Getting Started - Creating a Review 
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <p>Firstly, navigate to the "Review" page. If you have never used this application before, you will not see any reviews to navigate into. Click "New review" to assign your review a title, description and optionally a button to click if you'd like to see a history of actions you've taken when interacting with the review.
+                  Once you have created the review, simply click into it to navigate to the actual workbench.</p>  </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Review Page - Uploading and Annotating 
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p> 
+                  <h3> Uploading a .ris file</h3>
+                  <p>To get started, simply upload a .ris file to the workbench by clicking "Select Documents". Once you've selected your file, click upload and this will process for a little while.
+                  Once this has successfully uploaded, the page should refresh and you should see the total number of documents in the "Review Progress" button. </p>
+                  <h3> Annotating the Documents </h3>
+                  <p>Clicking "Annotate Documents" will take you to the abstract and title of a document. Then, you will be prompted to assign the document a relevancy. Once you have annotated a good chunk of documents, the "Recall" and "Classify" parts of the application will be more functional. </p></div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  Review Page 
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><h3> Review Progress </h3>
+                  <p> The next few sections will explain different aspects of the workbench. The review progress contains a list of all everything that's left to do. It's quite intuitive but the total documents is the number that has been uploaded. Relevant/not relevant/undecided are the terms for documents that have been screened in each category. Unexamined is a list of documents that are left to go. </p>
+                  <h3> Recall </h3>
+                  <p> Based on the documents that you have deemed relevant or not relevant, this "recall" section will be updated. Recall refers to the estimated number of relevant documents that are left based on the decisions you have made in the screening process. The calculation behind this is </p>
+                  <h3> Saving / Exporting Documents </h3>
+                  <p> Once you have uploaded your .ris file, you can save the document ID, title and relevancy as either a .csv file or a .txt file. 
+                    Optionally, if you don't want to export every single document, on the right-hand side of the workbench titled "Export for Review" you can apply different filters on the export. For example, once the dropdown menu is clicked, and "Relevant" is selected, only relevant documents will be exported. The percentage is the total amount of documents out of all that have been decided for a certain category to be exported. You can select the desired file type(either .ris, .txt or .csv). </p>
+                  </p>
+                  <h3> Classify </h3>
+                  <p>The workbench supports priority screening. When the classify button is clicked, the order that the documents are shown in the "Annotate Documents" section will be rearranged. Instead of showing in the order that the document is within the .ris file, documents that are more likely to be relevant are displayed. </p>
+                  <h3>Document List </h3>
+                  <p> The document list page will send you to a table displaying the document title, relevancy and other information. In the case that you want to change a relevancy, simply click into a document and change the relevancy. Searching for specific document titles here is also supported.</p>                  
+                </div>
+              </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                      History
+                    </button>
+                  </h2>
+                  <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"><p>In the case that you want to see past actions that your account has performed, this is visible within the left hand table on the "History" page. Alternatively, if you have enabled history for your review and have selected it on the right hand table, this will display a list of previously performed actions on that review.</p>    
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                      Settings
+                    </button>
+                  </h2>
+                  <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"><p>  
+                             On the settings page, there is an option to change the classifier that the program uses. The default classifier to use if no classifier has been selected is Support Vector Machines. The classifier shouldn't make too much of a difference in terms of priority screening. 
+                      Other than this, the user can also change their role, description, banner picture and profile picture.</p>    
+                    </div>
+                  </div>
+                <div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </div>          
+        <ul></ul>
+   
       <!-------------------------- FOOTER -------------------------->
       <footer id="footer" class="footer-1 bg_black text_white">
         <div class="main-footer widgets-dark typo-light text_white">
@@ -114,7 +191,6 @@
                     <p class="text_white">Categorize documents based on users' feedback </p>
                 </div>
               </div>
-              
               <div class="col">
                 
               </div>

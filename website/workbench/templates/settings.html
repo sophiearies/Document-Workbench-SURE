@@ -111,6 +111,27 @@
             </div>
 
             <hr class="header_separator">
+            <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force review_top_row_margin row_no_gutter ">            
+              <div>
+                <form class="update_classifier" method="POST" runat="server" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <p class="no_margin no_padding text-center">
+                    <input type="radio" id="option-1" name="classifier" value="SVM">
+                    <label for="option-1">Support Vector Machines</label><br>
+                    <input type="radio" id="option-2" name="classifier" value="RF">
+                    <label for="option-2">Random Forest</label><br>  
+                    <input type="radio" id="option-3" name="classifier" value="DT">
+                    <label for="option-3">Decision Tree</label><br>
+                    <input type="radio" id="option-4" name="classifier" value="MLP">
+                    <label for="option-4">Multi-layer Perceptron</label><br>
+                    <input type="radio" id="option-5" name="classifier" value="KNN">
+                    <label for="option-5">K-Nearest Neighbour</label><br><br>
+                    <button name="update_classifier" class="btn button_white rectangle_border search_button_nav col-lg-12 col-md-12 col-sm-12 col-xs-12 update_profile_button" type="submit">Update</button>
+                </form>
+              </div>
+            </div>  
+
+            <div class="standard_gray_div_shadow container_custom row text-white padding_10 black_shadow_force review_top_row_margin row_no_gutter ">
 
             <!-------------------------- ACTUAL FORM START-------------------------->
             <form class="update_profile_form margin_left_2p margin_right_2p" method="POST" runat="server" enctype="multipart/form-data">
@@ -189,9 +210,11 @@
             </form>
             <!-------------------------- ACTUAL FORM END-------------------------->
 
-          </div>
+               <!-------------------------- COLUMN 3 -------------------------->
+              <!-------------------------- EMPTY -------------------------->
+
         </div>
-      </div>
+      </div>        
       <!-------------------------- FOOTER -------------------------->
       <footer id="footer" class="footer-1 bg_black text_white">
         <div class="main-footer widgets-dark typo-light text_white">
@@ -211,6 +234,8 @@
               <div class="col">
                 
               </div>
+
+              
             
               <div class="col footer_contact">
                 <div class="widget no-box">

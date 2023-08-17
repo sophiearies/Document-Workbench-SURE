@@ -1,0 +1,7 @@
+ID	Title	Relevancy
+1	Eff ectiveness of Teneligliptin as an Add-on in T2DM Patients not Controlled on Metformin and Glimepiride.	1
+2	The authors reply.	0
+3	Insulin secretion is a strong predictor for need of insulin therapy in patients with new-onset diabetes and HbA1c of more than 10%: A post hoc analysis of the EDICT study.	0
+4	High baseline FGF21 levels are associated with poor glucose-lowering efficacy of exenatide in patients with type 2 diabetes.	1
+5	Extended versus immediate-release metformin.	3
+6	Triple therapy with low-dose dapagliflozin plus saxagliptin versus dual therapy with each monocomponent, all added to metformin, in uncontrolled type 2 diabetes.	1

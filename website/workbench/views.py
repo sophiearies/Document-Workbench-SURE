@@ -49,7 +49,6 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn.feature_extraction.text import TfidfVectorizer
 from . import functions
 from . import estimate_recall
-import pdfplumber
 from simple_search import search_filter
 import rispy
 
@@ -344,7 +343,14 @@ def settingsController(request):
       "profile" : profile,
       "user" : user,
     }
-         
+
+    if 'update_classifier' in request.POST: 
+        classifier = request.POST.get('classifier', 'default')
+        print(classifier)
+        response = render(request, 'settings.html', context=context_dict)
+        response.set_cookie('classifier', classifier)
+        return response 
+
     return render(request, 'settings.html', context=context_dict)
   else:
     return redirect('/')
@@ -532,22 +538,44 @@ def reviewManager(request, id):
           final_file_path = str(pathlib.Path().resolve()) + selected_folder
 
           temp_id_counter = 1
-          
-          with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
-            writer = csv.writer(f)
+          response = HttpResponse(content_type='text/csv')
+          name = str(upload_review.title) + '_output.csv'
 
-            #Write the header
-            writer.writerow(headers)
+          response['Content-Disposition'] = f'attachment; filename="{name}"'
+          
+          writer = csv.writer(response)
+          response.write(u'\ufeff'.encode('utf8'))
+
+          #Write the header
+          writer.writerow(headers)
+          
+          for document in annotated_docs_qs:
+            document_relevancy = document.relevancy
+            if document_relevancy == 0:
+              document_relevancy = "Not relevant"
+            if document_relevancy == 1:
+              document_relevancy = "Relevant"
+            if document_relevancy == 2: 
+              document_relevancy = "Not annotated"
+            if document_relevancy == 3:
+              document_relevancy = "Undecided"
+            writer.writerow([temp_id_counter, str(document.title), document_relevancy])
+            temp_id_counter += 1
             
-            for document in annotated_docs_qs:
-              writer.writerow([temp_id_counter, str(document.title), document.relevancy])
-              temp_id_counter += 1
-              
-            for document in not_annotated_docs_qs:
-              writer.writerow([temp_id_counter, str(document.title), document.relevancy])
-              temp_id_counter += 1
-         
-        #Create a .txt file as output     
+          for document in not_annotated_docs_qs:
+            document_relevancy = document.relevancy
+            if document_relevancy == 0:
+              document_relevancy = "Not relevant"
+            if document_relevancy == 1:
+              document_relevancy = "Relevant"
+            if document_relevancy == 2: 
+              document_relevancy = "Not annotated"
+            if document_relevancy == 3:
+              document_relevancy = "Undecided"
+            writer.writerow([temp_id_counter, str(document.title), document_relevancy])
+            temp_id_counter += 1
+
+        #Create a .txt file as output    
         if 'upload_type_txt' in request.POST:
           
           headers = ['ID', 'Title', 'Relevancy']
@@ -556,23 +584,45 @@ def reviewManager(request, id):
           annotated_docs_qs = DocumentRIS.objects.filter(~Q(relevancy=2),review_id=review_id)
           not_annotated_docs_qs = DocumentRIS.objects.filter(review_id=review_id, relevancy=2)
           
-          #Generate path for the output
-          selected_folder = '\\workbench\\outputs\\review_' + str(upload_review.title) + '_output.txt'
-          final_file_path = str(pathlib.Path().resolve()) + selected_folder
+          response = HttpResponse(content_type='text/txt')
+          name = str(upload_review.title) + '_output.txt'
+          response['Content-Disposition'] = f'attachment; filename="{name}"'
 
-          temp_id_counter = 1
+          #Generate path for the output
+          # selected_folder = '\\workbench\\outputs\\review_' + str(upload_review.title) + '_output.txt'
+          # final_file_path = str(pathlib.Path().resolve()) + selected_folder
+
+        temp_id_counter = 1
+        
+          #with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
+        response.write(u'\ufeff'.encode('utf8'))
+        response.write(headers[0] + "\t" + headers[1] + "\t" + headers[2] + "\n")
+        
+        for document in annotated_docs_qs:
+          document_relevancy = document.relevancy
+          if document_relevancy == 0:
+            document_relevancy = "Not relevant"
+          if document_relevancy == 1:
+            document_relevancy = "Relevant"
+          if document_relevancy == 2: 
+            document_relevancy = "Not annotated"
+          if document_relevancy == 3:
+            document_relevancy = "Undecided"
+          response.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + document_relevancy + "\n")
+          temp_id_counter += 1
           
-          with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
-            
-            f.write(headers[0] + "\t" + headers[1] + "\t" + headers[2] + "\n")
-            
-            for document in annotated_docs_qs:
-              f.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + str(document.relevancy) + "\n")
-              temp_id_counter += 1
-              
-            for document in not_annotated_docs_qs:
-              f.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + str(document.relevancy) + "\n")
-              temp_id_counter += 1
+        for document in not_annotated_docs_qs:
+          document_relevancy = document.relevancy
+          if document_relevancy == 0:
+            document_relevancy = "Not relevant"
+          if document_relevancy == 1:
+            document_relevancy = "Relevant"
+          if document_relevancy == 2: 
+            document_relevancy = "Not annotated"
+          if document_relevancy == 3:
+            document_relevancy = "Undecided"
+          response.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + document_relevancy + "\n")
+          temp_id_counter += 1
         
         #--------------------------------------- RECORD ACTIONS ---------------------------------------
         #Add action to history
@@ -580,7 +630,6 @@ def reviewManager(request, id):
         action_type = "review_download"
         
         functions.create_profile_action(action_string, action_type, request.user)
-        
         #Add action to review history
         if upload_review.history_enabled:
           
@@ -588,6 +637,7 @@ def reviewManager(request, id):
           action_type_2 = "review_download"
           
           functions.create_review_action(action_string_2, action_type_2, request.user, upload_review)
+        return response 
 
       if 'download_export' in request.POST:
         #------------- CREATE OUTPUT -----------------------)
@@ -617,111 +667,140 @@ def reviewManager(request, id):
         all_docs_qs = DocumentRIS.objects.filter(review_id=review_id)
         
         if export_file_type == "type_csv":
+          response = HttpResponse(content_type='text/csv')
+          name = str(upload_review.title) + export_data + '_output.csv'
+
+          response['Content-Disposition'] = f'attachment; filename="{name}"'
           
+          response.write(u'\ufeff'.encode('utf8'))
           #Generate path for the output
           selected_folder = '\\workbench\\exports\\review_' + str(upload_review.title) + '_export.csv'
           final_file_path = str(pathlib.Path().resolve()) + selected_folder
 
           temp_id_counter = 1
-        
-          with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
-            writer = csv.writer(f)
+          writer = csv.writer(response)
+  
+          #Write the header
+          writer.writerow(headers)
+          
+          if export_data == "selected_all":
+            chosen_set = list(all_docs_qs)
+          elif export_data == "selected_rel":
+            chosen_set = list(relevant_docs_qs)
+          elif export_data == "selected_not_rel":
+            chosen_set = list(not_relevant_docs_qs)
+          elif export_data == "selected_undecided":
+            chosen_set = list(undecided_docs_qs)
+          elif export_data == "selected_annotated":
+            chosen_set = list(annotated_docs_qs)
+          elif export_data == "selected_not_annotated":
+            chosen_set = list(not_annotated_docs_qs)
+          else:
+            chosen_set = list(all_docs_qs)
+      
+          chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
+          
+          for document in chosen_docs_final:
+            document_relevancy = document.relevancy
+            if document_relevancy == 0:
+              document_relevancy = "Not relevant"
+            if document_relevancy == 1:
+              document_relevancy = "Relevant"
+            if document_relevancy == 2: 
+              document_relevancy = "Not annotated"
+            if document_relevancy == 3:
+              document_relevancy = "Undecided"
+            writer.writerow([temp_id_counter, str(document.title), document_relevancy])
+            temp_id_counter += 1
+          return response 
 
-            #Write the header
-            writer.writerow(headers)
-            
-            if export_data == "selected_all":
-              chosen_set = list(all_docs_qs)
-            elif export_data == "selected_rel":
-              chosen_set = list(relevant_docs_qs)
-            elif export_data == "selected_not_rel":
-              chosen_set = list(not_relevant_docs_qs)
-            elif export_data == "selected_undecided":
-              chosen_set = list(undecided_docs_qs)
-            elif export_data == "selected_annotated":
-              chosen_set = list(annotated_docs_qs)
-            elif export_data == "selected_not_annotated":
-              chosen_set = list(not_annotated_docs_qs)
-            else:
-              chosen_set = list(all_docs_qs)
-              
-            
-            chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
-            
-            for document in chosen_docs_final:
-              writer.writerow([temp_id_counter, str(document.title), document.relevancy])
-              temp_id_counter += 1
-        
         if export_file_type == "type_txt":
-          
-          #Generate path for the output
-          selected_folder = '\\workbench\\exports\\review_' + str(upload_review.title) + '_export.txt'
-          final_file_path = str(pathlib.Path().resolve()) + selected_folder
+          response = HttpResponse(content_type='text/txt')
+          name = str(upload_review.title) + export_data + '_output.txt'
+          response['Content-Disposition'] = f'attachment; filename="{name}"'
+
+          # #Generate path for the output
+          # selected_folder = '\\workbench\\exports\\review_' + str(upload_review.title) + '_export.txt'
+          # final_file_path = str(pathlib.Path().resolve()) + selected_folder
 
           temp_id_counter = 1
           
-          with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
-            
-            f.write(headers[0] + "\t" + headers[1] + "\t" + headers[2] + "\n")
-            
-            if export_data == "selected_all":
-              chosen_set = list(all_docs_qs)
-            elif export_data == "selected_rel":
-              chosen_set = list(relevant_docs_qs)
-            elif export_data == "selected_not_rel":
-              chosen_set = list(not_relevant_docs_qs)
-            elif export_data == "selected_undecided":
-              chosen_set = list(undecided_docs_qs)
-            elif export_data == "selected_annotated":
-              chosen_set = list(annotated_docs_qs)
-            elif export_data == "selected_not_annotated":
-              chosen_set = list(not_annotated_docs_qs)
-            else:
-              chosen_set = list(all_docs_qs)
+          # with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
+          
+          response.write(headers[0] + "\t" + headers[1] + "\t" + headers[2] + "\n")
+          
+          if export_data == "selected_all":
+            chosen_set = list(all_docs_qs)
+          elif export_data == "selected_rel":
+            chosen_set = list(relevant_docs_qs)
+          elif export_data == "selected_not_rel":
+            chosen_set = list(not_relevant_docs_qs)
+          elif export_data == "selected_undecided":
+            chosen_set = list(undecided_docs_qs)
+          elif export_data == "selected_annotated":
+            chosen_set = list(annotated_docs_qs)
+          elif export_data == "selected_not_annotated":
+            chosen_set = list(not_annotated_docs_qs)
+          else:
+            chosen_set = list(all_docs_qs)
+          
+          chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
+          
+          for document in chosen_docs_final:
+            document_relevancy = document.relevancy
+            if document_relevancy == 0:
+              document_relevancy = "Not relevant"
+            if document_relevancy == 1:
+              document_relevancy = "Relevant"
+            if document_relevancy == 2: 
+              document_relevancy = "Not annotated"
+            if document_relevancy == 3:
+              document_relevancy = "Undecided"
               
-            
-            chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
-            
-            for document in chosen_docs_final:
-              f.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + str(document.relevancy) + "\n")
-              temp_id_counter += 1
-        
+            response.write(str(temp_id_counter) + "\t" + str(document.title) + "\t" + document_relevancy + "\n")
+            temp_id_counter += 1
+          return response 
+      
         if export_file_type == "type_ris":
-          
+          response = HttpResponse(content_type='application/x-research-info-systems')
+          name = str(upload_review.title) + export_data + '_output.ris'
+          response['Content-Disposition'] = f'attachment; filename="{name}"'
+
           #Generate path for the output
-          selected_folder = '\\workbench\\exports\\review_' + str(upload_review.title) + '_export.ris'
-          final_file_path = str(pathlib.Path().resolve()) + selected_folder
+          # selected_folder = '\\workbench\\exports\\review_' + str(upload_review.title) + '_export.ris'
+          # final_file_path = str(pathlib.Path().resolve()) + selected_folder
 
           temp_id_counter = 1
           
-          with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
+          # with open(final_file_path, 'w+', encoding='UTF8', newline='') as f:
+          
+          if export_data == "selected_all":
+            chosen_set = list(all_docs_qs)
+          elif export_data == "selected_rel":
+            chosen_set = list(relevant_docs_qs)
+          elif export_data == "selected_not_rel":
+            chosen_set = list(not_relevant_docs_qs)
+          elif export_data == "selected_undecided":
+            chosen_set = list(undecided_docs_qs)
+          elif export_data == "selected_annotated":
+            chosen_set = list(annotated_docs_qs)
+          elif export_data == "selected_not_annotated":
+            chosen_set = list(not_annotated_docs_qs)
+          else:
+            chosen_set = list(all_docs_qs)
             
-            if export_data == "selected_all":
-              chosen_set = list(all_docs_qs)
-            elif export_data == "selected_rel":
-              chosen_set = list(relevant_docs_qs)
-            elif export_data == "selected_not_rel":
-              chosen_set = list(not_relevant_docs_qs)
-            elif export_data == "selected_undecided":
-              chosen_set = list(undecided_docs_qs)
-            elif export_data == "selected_annotated":
-              chosen_set = list(annotated_docs_qs)
-            elif export_data == "selected_not_annotated":
-              chosen_set = list(not_annotated_docs_qs)
-            else:
-              chosen_set = list(all_docs_qs)
-              
-            
-            chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
-            
-            for document in chosen_docs_final:
-              f.write(str(temp_id_counter) + "." + "\n")
-              f.write("ID  - " + str(document.doc_id) + "\n")
-              f.write("T1  - " + str(document.title) + "\n")
-              f.write("N2  - " + str(document.abstract) + "\n")
-              f.write("\n")
-              temp_id_counter += 1
-        
+          
+          chosen_docs_final = random.sample(chosen_set, math.floor((math.floor(int(export_percentage))/100)*len(chosen_set)))
+          
+          for document in chosen_docs_final:
+            response.write(str(temp_id_counter) + "." + "\n")
+            response.write("ID  - " + str(document.doc_id) + "\n")
+            response.write("T1  - " + str(document.title) + "\n")
+            response.write("N2  - " + str(document.abstract) + "\n")
+            response.write("\n")
+            temp_id_counter += 1
+          return response 
+      
         
       
       #Attempt to classify documents
@@ -804,26 +883,25 @@ def reviewManager(request, id):
           #tfidfconverter = TfidfVectorizer(max_features=1500, min_df=5, max_df=0.7, stop_words=stopwords.words('english'))
           
           #Get selected classifier type
-          selected_classifier = request.POST['selected_classifier']
-          
-          if selected_classifier == "1":
+          classifier = request.COOKIES.get('classifier', 'default')
+          if classifier == "SVM":
             classifier_pipeline = ('clf', SVC(kernel="rbf", gamma='scale', C=1, probability=True))
-            
-          elif selected_classifier == "2":
+          if classifier == "RF":
             classifier_pipeline = ('clf', RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1))
-            
-          elif selected_classifier == "3":
+          if classifier == "DT":
             classifier_pipeline = ('clf', DecisionTreeClassifier(max_depth=5))
-            
-          elif selected_classifier == "4":
+          if classifier == "MLP":
             classifier_pipeline = ('clf', MLPClassifier(alpha=1, max_iter=1000))
-            
-          elif selected_classifier == "5":
+          if classifier == "KNN":
             classifier_pipeline = ('clf', KNeighborsClassifier(3))
-          
           else:
             classifier_pipeline = ('clf', SVC(kernel="rbf", gamma='scale', C=1, probability=True))
-          
+
+                
+
+
+
+
           
           #Create classifier pipeline. Transform words into numerical values using the bag of words method
           pipeline = Pipeline([('vect', TfidfVectorizer(stop_words=stopwords.words('english'), sublinear_tf=True)),
@@ -902,7 +980,8 @@ def displayDocuments(request, id):
         #Check if there is a search word in the query
         if search_query:
           all_documents = DocumentRIS.objects.filter(search_filter(search_fields, search_query), review_id=review_id).order_by('-added_on')
-    
+        
+
     if request.method == 'POST':
       
       #Open annotate page for the selected document     
@@ -1047,25 +1126,22 @@ def displayDocuments(request, id):
 def annotateDocument(request, id):
      
   if request.user.is_authenticated and (DocumentRIS.objects.filter(review_id=id, relevancy=2).count() > 0):
-    
     review_id = id
-    current_review = Review.objects.get(id=review_id)  
+    current_review = Review.objects.get(id=review_id)
     profile = Profile.objects.get(user_id=request.user)
     
     if request.method == 'POST':
-      
       document_id = request.POST['annoint_document_id']
-      document_to_annoint = DocumentRIS.objects.get(id=document_id),
-      
+      document_to_annoint = DocumentRIS.objects.get(id=document_id)
+  
       if 'annoint_relevant' in request.POST:
-        
         #Annotate selected document as relevant  
-        document_to_annoint[0].relevancy = 1
-        document_to_annoint[0].is_screened = True
-        document_to_annoint[0].screened_by = request.user
-        document_to_annoint[0].screened_by_username = str(request.user)
-        document_to_annoint[0].added_on = datetime.datetime.now()
-        document_to_annoint[0].save()
+        document_to_annoint.relevancy = 1
+        document_to_annoint.is_screened = True
+        document_to_annoint.screened_by = request.user
+        document_to_annoint.screened_by_username = str(request.user)
+        document_to_annoint.added_on = datetime.datetime.now()
+        document_to_annoint.save()
         
         profile.documents_screened += 1
         profile.save()
@@ -1076,7 +1152,7 @@ def annotateDocument(request, id):
         current_review.save()
         
         #--------------------------------------- RECORD ACTIONS ---------------------------------------
-        document_title = str(document_to_annoint[0].title)
+        document_title = str(document_to_annoint.title)
         #Add action to history
         action_string = "You have annotated document " + document_title + " in review " + current_review.title + " as relevant"
         action_type = "review_annotate_relevant"
@@ -1095,12 +1171,12 @@ def annotateDocument(request, id):
       if 'annoint_not_relevant' in request.POST:
         
         #Annotate selected document as not relevant  
-        document_to_annoint[0].relevancy = 0
-        document_to_annoint[0].is_screened = True
-        document_to_annoint[0].screened_by = request.user
-        document_to_annoint[0].screened_by_username = str(request.user)
-        document_to_annoint[0].added_on = datetime.datetime.now()
-        document_to_annoint[0].save()
+        document_to_annoint.relevancy = 0
+        document_to_annoint.is_screened = True
+        document_to_annoint.screened_by = request.user
+        document_to_annoint.screened_by_username = str(request.user)
+        document_to_annoint.added_on = datetime.datetime.now()
+        document_to_annoint.save()
         
         profile.documents_screened += 1
         profile.save()
@@ -1128,18 +1204,18 @@ def annotateDocument(request, id):
       if 'annoint_skip' in request.POST:
           
         #Annotate selected document as undecided
-        document_to_annoint[0].relevancy = 3
-        document_to_annoint[0].is_screened = True
-        document_to_annoint[0].screened_by = request.user
-        document_to_annoint[0].screened_by_username = str(request.user)
-        document_to_annoint[0].added_on = datetime.datetime.now()
-        document_to_annoint[0].save()
+        document_to_annoint.relevancy = 3
+        document_to_annoint.is_screened = True
+        document_to_annoint.screened_by = request.user
+        document_to_annoint.screened_by_username = str(request.user)
+        document_to_annoint.added_on = datetime.datetime.now()
+        document_to_annoint.save()
         
         profile.documents_screened += 1
         profile.save()
         
         #--------------------------------------- RECORD ACTIONS ---------------------------------------
-        document_title = str(document_to_annoint[0].title)
+        document_title = str(document_to_annoint.title)
         #Add action to history
         action_string = "You have annotated document " + document_title + " in review " + current_review.title + " as undecided"
         action_type = "review_annotate_undecided"

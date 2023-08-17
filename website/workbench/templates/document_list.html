@@ -13,10 +13,12 @@
       <link rel="stylesheet" href="/static/workbench/css/general.css">
       <link rel="stylesheet" href="/static/workbench/css/global.css">
       <link rel="stylesheet" href="/static/workbench/css/documents_list.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+      <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
       <script src="/static/workbench/js/general.js"></script>
       <script src="/static/workbench/js/side_menu.js"></script>
-      <script src="/static/workbench/js/document_list.js" defer></script>
-      
+      <script src="/static/workbench/js/document_list.js"></script>
+     
     </head>
 
     <!-------------------------- NAV BAR -------------------------->
@@ -101,23 +103,13 @@
         <!-------------------------- PAGE CONTENT -------------------------->
         <div class="page_content">
           <div class="container_custom force_size row">
-            
-            <!-------------------------- SEARCH DIV -------------------------->
-            <div class="standard_div_shadow padding_10 row row_no_gutter">
-              <div class="col-lg-4 col-md-5 col-sm-6 col-xs-12 no_padding">
-                <form class="d-flex search_placement search_form_nav" method="GET">
-                  {% csrf_token %}
-                  <input name="document_list_input" type="search" class="form-control me-1 rectangle_border bg_dark_gray search_input_nav" type="search" placeholder="Search documents" aria-label="searchReviewsTable">
-                  <button class="btn button_white rectangle_border search_button_nav" type="submit">Search</button>
-                </form>
-              </div>
-            </div>
+          
 
             <!-------------------------- TABLE DIV -------------------------->
-            <div class="standard_div_shadow margin_top_1p row row_no_gutter">
+            <div class="margin_top_1p row row_no_gutter">
               <div class="table100 ver3 m-b-110">
                 <div class="table100-head">
-                  <table>
+                  <table id="myTable" class="table100-body js-pscroll">
                     <thead>
                       <tr class="row100 head border_bottom_white">
                         <th class="cell100 column1">Title</th>
@@ -127,64 +119,50 @@
                         <th class="cell100 column5 center_text">Relevancy</th>
                       </tr>
                     </thead>
-                  </table>
-                </div>
-              
-                <div class="table100-body js-pscroll">
-                  <table>
                     <tbody>
-            
-
                       {% for document in all_documents %}
-
-                        <tbody class="review_onclick table_tbody_link">
-
-                          <form id="form_onclick_{{forloop.counter0}}"  method="POST">
-                          {% csrf_token %}
-                            <input name="selected_document_id" type="hidden" value={{ document.id }}>
-                          </form>
-
-                          <tr class="row100 body table_tr_link">
-                            <td class="cell100 column1">{{ document.title }}</td>
-                            <td class="cell100 column2 center_text">{{ document.added_on }}</td>
-
-                            {% if document.is_screened == False %}
-                              <td class="cell100 column3 center_text">No</td>
-                            {% else %}
-                              <td class="cell100 column3 center_text">Yes</td>
-                            {% endif %}
-                            
-                            <td class="cell100 column4 center_text">{{ document.screened_by_username }}</td>
-
-                            {% if document.relevancy == 0 %}
-                              <td class="cell100 column3 center_text">Not relevant</td>
-                            {% elif document.relevancy == 1 %}
-                              <td class="cell100 column3 center_text">Relevant</td>
-                            {% elif document.relevancy == 3 %}
-                              <td class="cell100 column3 center_text">Undecided</td>
-                            {% else %}
-                              <td class="cell100 column3 center_text">Not annotated</td>
-                            {% endif %}
-                          </tr>
-                        </tbody>
-
-
-                        
+                      <tr class="row100 body table_tr_link review_onclick" data-document-id="{{ document.id }}">
+                        {% csrf_token %}
+                        <!-- <form class="form_onclick"  method="POST">
+                              <input name="selected_document_id" type="hidden" value={{ document.id }}>
+                          </form>  -->
+                        <td class="cell100 column1">{{ document.title }}</td>
+                        <td class="cell100 column2 center_text">{{ document.added_on }}</td>
+              
+                        {% if document.is_screened == False %}
+                          <td class="cell100 column3 center_text">No</td>
+                        {% else %}
+                          <td class="cell100 column3 center_text">Yes</td>
+                        {% endif %}
+              
+                        <td class="cell100 column4 center_text">{{ document.screened_by_username }}</td>
+              
+                        {% if document.relevancy == 0 %}
+                          <td class="cell100 column3 center_text">Not relevant</td>
+                        {% elif document.relevancy == 1 %}
+                          <td class="cell100 column3 center_text">Relevant</td>
+                        {% elif document.relevancy == 3 %}
+                          <td class="cell100 column3 center_text">Undecided</td>
+                        {% else %}
+                          <td class="cell100 column3 center_text">Not annotated</td>
+                        {% endif %}
+                      </tr>
                       {% empty %}
-                        <div class="standard_gray_div documents_table_div no_documents_div">
-                          <h2 class="text-white">There are no documents in this review</h2>
-                        </div>
+                      <tr class="standard_gray_div documents_table_div no_documents_div">
+                        <td colspan="5" class="text-white">There are no documents in this review</td>
+                      </tr>
                       {% endfor %}   
-
                     </tbody>
                   </table>
-                </div>
+                </div>                
               </div>
             </div>
 
           </div>
         </div>
       </div>
+      <ul></ul>
+      <ul></ul>
       <!-------------------------- FOOTER -------------------------->
       <footer id="footer" class="footer-1 bg_black text_white">
         <div class="main-footer widgets-dark typo-light text_white">
